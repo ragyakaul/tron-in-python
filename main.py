@@ -1,23 +1,24 @@
 import pygame
 import settings
+import random
 from pygame.locals import K_UP, K_DOWN, K_LEFT, K_RIGHT
 
 
 pygame.init()
 
-#displaySurface = pygame.display.set_mode((settings.SCREEN_WIDTH, settings.SCREEN_HEIGHT))
 
-displaySurface = pygame.display.set_mode((30, 30))
+width = settings.SCREEN_WIDTH
+height = settings.SCREEN_HEIGHT
+
+displaySurface = pygame.display.set_mode((width, height))
 
 
 
 pygame.display.set_caption("Tron in Python")
 
-#player_x: int = settings.SCREEN_WIDTH/2
-#player_y: int = settings.SCREEN_HEIGHT/2
+player_x: int = width/2
+player_y: int = height/2
 
-player_x: int = 15
-player_y: int = 15
 
 clock = pygame.time.Clock()
 vel = 10
@@ -25,16 +26,37 @@ vel = 10
 direction = None
 
 # Needs to step 10 at a time
-coord_list = [] # example: [[0, 10, false], [0, 20, false]]
-for x in range(0, 30, 10):
-    for y in range(0, 30, 10):
-        coord_deets = []
-        coord_deets.append(x, y)
-        #coord_deets.append(y)
-        coord_deets.append(False)
-        coord_list.append(coord_deets)
 
+coord_list = [] # example: [[0, 10, false], [0, 20, false]]
+for x in range(0, width, 10):
+    coord_deets = []
+    for y in range(0, height, 10):
+        coord_deets.append(y)
+        # coord_deets = []
+        # coord_deets.append(x)
+        # coord_deets.append(y)
+        # coord_deets.append(False)
+        # coord_list.append(coord_deets)
+        # coord_list.append(0)
+    coord_list.append(random.randint(0, 1000000000))
+
+ # Come back and ask Clinton       
+
+print("PRINT STATEMENTS")
 print(coord_list)
+print("PRINT STATEMENTS END")
+
+
+# def markandCheckCoordinate():
+#     print(coord_list[int(player_x)][2])
+    
+#     if coord_list[int(player_x)][2] == True:
+#         print("TAIL HIT!!!")
+#         exit()
+    
+#     if player_x == coord_list[int(player_x)][0]:
+#         if player_y == coord_list[int(player_x)][1]:
+#             coord_list[int(player_x)][2] = True
 
 
 while True:
@@ -64,23 +86,29 @@ while True:
         player_x = player_x + vel
     """
 
-    print[f"coord_list[player_x, player_y] {coord_list[player_x, player_y]}"]
     if direction == "UP":
         player_y -= vel
         print(f"player_y UP: {player_y}")
+        #markandCheckCoordinate()
+        
     if direction == "DOWN":
         player_y += vel
         print(f"player_y DOWN: {player_y}")
+        #markandCheckCoordinate()
+
     if direction == "LEFT":
         player_x -= vel
         print(f"player_x LEFT: {player_x}")
+        #markandCheckCoordinate()
+        
     if direction == "RIGHT":
         player_x += vel
         print(f"player_x RIGHT: {player_x}")
+        #markandCheckCoordinate()
 
 
     #logic for if it goes out of the screen end game? (original game freezes with a bang sound)
-    if player_y > 100 or player_y < 0 or player_x > 100 or player_y < 0:
+    if player_y > height or player_y < 0 or player_x > width or player_y < 0:
         pygame.quit()
         exit()
 
